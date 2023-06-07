@@ -1,4 +1,4 @@
-import logo from '../../../assets/logo.png';
+import logoWhite from '../../../assets/logoWhite.png';
 import { FaFacebookF, FaInstagramSquare, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
@@ -26,7 +26,7 @@ const Footer = () => {
 			</footer>
 			<footer className="footer px-10 py-4 border-t text-white bg-black border-black">
 				<div className="items-center grid-flow-col">
-					<img className="w-[200px]" src={logo} alt="" />
+					<img className="w-[200px]" src={logoWhite} alt="" />
 					<p>
 						Talk Trove E-Learning Platform <br /> Copyright © 2023 -
 						All right reserved by Talk Trove

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import logo from '../../../assets/logo.png';
+import logoWhite from '../../../assets/logoWhite.png';
 
 const Navbar = () => {
 	const navOptions = (
@@ -47,7 +47,7 @@ const Navbar = () => {
 					</ul>
 				</div>
 				<Link to="/">
-					<img className="w-[200px]" src={logo} alt="" />
+					<img className="w-[200px]" src={logoWhite} alt="" />
 				</Link>
 			</div>
 			<div className="navbar-center hidden lg:flex">
