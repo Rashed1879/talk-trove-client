@@ -20,7 +20,7 @@ const Navbar = () => {
 	);
 
 	return (
-		<div className="navbar fixed z-10 bg-opacity-30 max-w-screen-xl bg-black text-white">
+		<div className="navbar fixed z-10 max-w-screen-xl bg-black text-white">
 			<div className="navbar-start">
 				<div className="dropdown">
 					<label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -59,7 +59,7 @@ const Navbar = () => {
 				</button>
 				<div className="avatar">
 					<div className="w-16 rounded-full ring ring-black">
-						<img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+						<img src="" />
 					</div>
 				</div>
 			</div>
