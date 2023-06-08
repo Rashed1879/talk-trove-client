@@ -17,11 +17,11 @@ const Banner = () => {
 					<div className="absolute inset-0 bg-black opacity-50"></div>
 
 					<div className="z-10 text-center">
-						<h2 className="text-7xl text-white mb-5">
+						<h2 className="text-3xl md:text-7xl text-white mb-5">
 							Unlimited classes <br />
 							Unlimited learning!
 						</h2>
-						<p className="text-white text-2xl">
+						<p className="text-white text-base md:text-2xl">
 							Start speaking confidently - with live classes{' '}
 							<br />
 							taught by world-class instructors.
@@ -35,11 +35,11 @@ const Banner = () => {
 					<div className="absolute inset-0 bg-black opacity-50"></div>
 
 					<div className="z-10 text-center">
-						<h2 className="text-7xl text-white mb-5">
+						<h2 className="text-3xl md:text-7xl text-white mb-5">
 							Language Immersion Program <br />
 							Language-rich Environment!
 						</h2>
-						<p className="text-white text-2xl">
+						<p className="text-white text-base md:text-2xl">
 							Immerse yourself in a language-rich environment.
 							<br />
 							Accelerate your learning with our intensive language
@@ -54,11 +54,11 @@ const Banner = () => {
 					<div className="absolute inset-0 bg-black opacity-50"></div>
 
 					<div className="z-10 text-center">
-						<h2 className="text-7xl text-white mb-5">
+						<h2 className="text-3xl md:text-7xl text-white mb-5">
 							Customized Language Courses <br />
 							Learn in a way you like!
 						</h2>
-						<p className="text-white text-2xl">
+						<p className="text-white text-base md:text-2xl">
 							Tailor your language learning experience with our
 							customized courses. <br />
 							Personalized approach will help you achieve your

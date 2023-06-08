@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom';
+/* eslint-disable no-unused-vars */
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import regiserbg from '../../assets/images/register.jpg';
+import registerbg from '../../assets/images/register.jpg';
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 
 const Register = () => {
 	const { createUser, updateUserProfile } = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	const {
 		register,
@@ -14,23 +16,43 @@ const Register = () => {
 		formState: { errors },
 	} = useForm();
 
-	const onSubmit = (data) => {
-		console.log(data);
-		createUser(data.email, data.password)
-			.then((result) => {
-				const createdUser = result.user;
-				updateUserProfile(data.name, data.photo)
-					.then(() => {
-						console.log(createdUser);
-					})
-					.catch((error) => {
-						console.log(error);
-					});
-			})
-			.catch((error) => {
-				console.log(error);
+	const onSubmit = async (data) => {
+		const image = data.photo[0];
+		const formData = new FormData();
+		formData.append('image', image);
+		const url = `https://api.imgbb.com/1/upload?key=${
+			import.meta.env.VITE_IMGBB_KEY
+		}`;
+
+		try {
+			const res = await fetch(url, {
+				method: 'POST',
+				body: formData,
 			});
-		reset();
+
+			const imgData = await res.json();
+			const imageUrl = imgData.data.display_url;
+
+			try {
+				const result = await createUser(data.email, data.password);
+				const createdUser = result.user;
+
+				// Update the user's profile with the image URL
+				try {
+					await updateUserProfile(data.name, imageUrl);
+
+					navigate('/login');
+				} catch (error) {
+					console.log(error);
+				}
+			} catch (error) {
+				console.log(error);
+			}
+
+			reset();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -66,11 +88,10 @@ const Register = () => {
 									</span>
 								</label>
 								<input
-									type="text"
+									type="file"
 									name="photo"
-									placeholder="Your Photo Url"
 									{...register('photo', { required: true })}
-									className="input border-2 border-black"
+									className="file-input file-input-bordered file-input-sm w-full max-w-xs"
 								/>
 							</div>
 							<div className="form-control">
@@ -153,7 +174,7 @@ const Register = () => {
 						</form>
 					</div>
 					<div>
-						<img className="w-[500px]" src={regiserbg} alt="" />
+						<img className="w-[500px]" src={registerbg} alt="" />
 					</div>
 				</div>
 			</div>

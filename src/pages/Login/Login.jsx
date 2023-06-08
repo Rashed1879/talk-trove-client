@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+/* eslint-disable no-unused-vars */
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import loginbg from '../../assets/images/login.jpg';
@@ -9,16 +10,17 @@ import { AuthContext } from '../../providers/AuthProvider';
 const Login = () => {
 	const { signIn, signInWithGoogle, updateUserProfile } =
 		useContext(AuthContext);
-	const [showPassword, setShowPassword] = useState(true);
-
 	const { register, handleSubmit } = useForm();
+	const [showPassword, setShowPassword] = useState(true);
+	const location = useLocation();
+	const from = location.state?.from?.pathname || '/';
+	const navigate = useNavigate();
 
 	const onSubmit = (data) => {
-		console.log(data);
 		signIn(data.email, data.password)
 			.then((result) => {
 				const loggedUser = result.user;
-				console.log(loggedUser);
+				navigate(from, { replace: true });
 			})
 			.catch((error) => {
 				console.log(error);
@@ -55,12 +57,13 @@ const Login = () => {
 							className="card-body"
 						>
 							<div className="form-control font-bold text-2xl text-black flex flex-col items-center justify-center text-center">
-								Sign In With{' '}
-								<div className=" font-bold">
-									<FcGoogle
-										onClick={handleGoogleSignIn}
-										className="text-5xl mx-auto cursor-pointer"
-									/>
+								Sign In
+								<div
+									onClick={handleGoogleSignIn}
+									className="font-bold flex items-center border-2 border-black p-2 mt-2 rounded-lg cursor-pointer"
+								>
+									<FcGoogle className="text-5xl mx-auto cursor-pointer mr-2" />
+									<p>Continue With Google</p>
 								</div>
 							</div>
 							<div className="divider font-bold text-black">
