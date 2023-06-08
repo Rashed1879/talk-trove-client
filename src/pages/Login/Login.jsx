@@ -2,16 +2,44 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import loginbg from '../../assets/images/login.jpg';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Login = () => {
+	const { signIn, signInWithGoogle, updateUserProfile } =
+		useContext(AuthContext);
 	const [showPassword, setShowPassword] = useState(true);
 
 	const { register, handleSubmit } = useForm();
 
 	const onSubmit = (data) => {
 		console.log(data);
+		signIn(data.email, data.password)
+			.then((result) => {
+				const loggedUser = result.user;
+				console.log(loggedUser);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
+	const handleGoogleSignIn = () => {
+		signInWithGoogle()
+			.then((result) => {
+				const user = result.user;
+				updateUserProfile(user.name, user.photoURL)
+					.then(() => {
+						console.log(user);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			})
+			.catch((error) => {
+				console.log(error.message);
+			});
 	};
 
 	return (
@@ -29,7 +57,10 @@ const Login = () => {
 							<div className="form-control font-bold text-2xl text-black flex flex-col items-center justify-center text-center">
 								Sign In With{' '}
 								<div className=" font-bold">
-									<FcGoogle className="text-5xl mx-auto cursor-pointer" />
+									<FcGoogle
+										onClick={handleGoogleSignIn}
+										className="text-5xl mx-auto cursor-pointer"
+									/>
 								</div>
 							</div>
 							<div className="divider font-bold text-black">

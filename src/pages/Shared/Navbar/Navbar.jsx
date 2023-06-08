@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
 import logoWhite from '../../../assets/logoWhite.png';
+import { useContext } from 'react';
+import { AuthContext } from '../../../providers/AuthProvider';
+import { IoMdLogOut } from 'react-icons/io';
 
 const Navbar = () => {
+	const { user, logOut } = useContext(AuthContext);
+
 	const navOptions = (
 		<>
 			<li>
@@ -13,11 +18,19 @@ const Navbar = () => {
 			<li>
 				<Link to="/">Classes</Link>
 			</li>
-			<li>
-				<Link to="/">Dashboard</Link>
-			</li>
+			{user && (
+				<li>
+					<Link to="/">Dashboard</Link>
+				</li>
+			)}
 		</>
 	);
+
+	const handleLogOut = () => {
+		logOut()
+			.then()
+			.catch((error) => console.log(error));
+	};
 
 	return (
 		<div className="navbar fixed z-10 max-w-screen-xl bg-black text-white">
@@ -54,16 +67,37 @@ const Navbar = () => {
 				<ul className="menu menu-horizontal px-1">{navOptions}</ul>
 			</div>
 			<div className="navbar-end">
-				<Link to="/login">
-					<button className="btn btn-outline bg-black text-white border-0 hover:bg-white hover:text-black">
-						Login
-					</button>
-				</Link>
-				<div className="avatar">
-					<div className="w-16 rounded-full ring ring-black">
-						<img src="" />
-					</div>
-				</div>
+				{user ? (
+					<>
+						<div className="avatar">
+							<div className="w-14 rounded-full ring ring-black">
+								<img src={user?.photoURL} />
+							</div>
+						</div>
+						<div
+							className="tooltip tooltip-bottom tooltip-error"
+							data-tip="Log out"
+						>
+							<IoMdLogOut
+								onClick={handleLogOut}
+								className="w-8 h-8 ml-5"
+							/>
+						</div>
+					</>
+				) : (
+					<>
+						<Link to="/login">
+							<button className="btn btn-sm btn-outline bg-white text-black border-0 hover:bg-orange-600 hover:text-white mr-2">
+								Login
+							</button>
+						</Link>
+						<Link to="/signup">
+							<button className="btn btn-sm btn-outline bg-white text-black border-0 hover:bg-orange-600 hover:text-white">
+								Sign Up
+							</button>
+						</Link>
+					</>
+				)}
 			</div>
 		</div>
 	);

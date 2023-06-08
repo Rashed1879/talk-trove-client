@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import regiserbg from '../../assets/images/register.jpg';
+import { useContext } from 'react';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Register = () => {
+	const { createUser, updateUserProfile } = useContext(AuthContext);
+
 	const {
 		register,
 		handleSubmit,
@@ -12,6 +16,20 @@ const Register = () => {
 
 	const onSubmit = (data) => {
 		console.log(data);
+		createUser(data.email, data.password)
+			.then((result) => {
+				const createdUser = result.user;
+				updateUserProfile(data.name, data.photo)
+					.then(() => {
+						console.log(createdUser);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 		reset();
 	};
 
