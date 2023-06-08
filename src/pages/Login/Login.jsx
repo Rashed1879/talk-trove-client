@@ -20,8 +20,8 @@ const Login = () => {
 				<h2 className="text-center py-5 text-5xl font-bold text-black">
 					Sign In
 				</h2>
-				<div className="flex items-center justify-center">
-					<div className="card w-full md:w-96 mx-auto mb-8 shadow-2xl bg-white border-2 border-black">
+				<div className="flex items-center justify-center m-16">
+					<div className="card w-[500px] mx-auto mb-8 shadow-2xl bg-white border-2 border-black">
 						<form
 							onSubmit={handleSubmit(onSubmit)}
 							className="card-body"
@@ -84,7 +84,7 @@ const Login = () => {
 									New to this Website?{' '}
 									<Link
 										className="link link-hover font-bold text-blue-700"
-										to="/register"
+										to="/signup"
 									>
 										Please Register
 									</Link>
@@ -99,8 +99,8 @@ const Login = () => {
 							</div>
 						</form>
 					</div>
-					<div className="md:w-1/2">
-						<img className="w-[400px]" src={loginbg} alt="" />
+					<div className="w-[500px]">
+						<img className="w-full" src={loginbg} alt="" />
 					</div>
 				</div>
 			</div>
