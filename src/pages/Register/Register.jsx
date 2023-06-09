@@ -2,11 +2,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import registerbg from '../../assets/images/register.jpg';
+import { FcGoogle } from 'react-icons/fc';
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 
 const Register = () => {
-	const { createUser, updateUserProfile } = useContext(AuthContext);
+	const { createUser, updateUserProfile, signInWithGoogle } =
+		useContext(AuthContext);
 	const navigate = useNavigate();
 
 	const {
@@ -17,6 +19,9 @@ const Register = () => {
 	} = useForm();
 
 	const onSubmit = async (data) => {
+		if (data.password !== data.confirmPassword) {
+			return alert("Password didn't mathed!");
+		}
 		const image = data.photo[0];
 		const formData = new FormData();
 		formData.append('image', image);
@@ -40,8 +45,25 @@ const Register = () => {
 				// Update the user's profile with the image URL
 				try {
 					await updateUserProfile(data.name, imageUrl);
-
-					navigate('/login');
+					const saveUser = {
+						name: data.name,
+						email: data.email,
+						image: imageUrl,
+						role: 'student',
+					};
+					fetch('http://localhost:5000/users', {
+						method: 'POST',
+						headers: {
+							'content-type': 'application/json',
+						},
+						body: JSON.stringify(saveUser),
+					})
+						.then((res) => res.json())
+						.then((data) => {
+							if (data.insertedId) {
+								navigate('/login');
+							}
+						});
 				} catch (error) {
 					console.log(error);
 				}
@@ -53,6 +75,34 @@ const Register = () => {
 		} catch (error) {
 			console.log(error);
 		}
+	};
+
+	const handleGoogleSignIn = () => {
+		signInWithGoogle()
+			.then((result) => {
+				const user = result.user;
+
+				const saveUser = {
+					name: user.displayName,
+					email: user.email,
+					image: user.photoURL,
+					role: 'student',
+				};
+				fetch('http://localhost:5000/users', {
+					method: 'POST',
+					headers: {
+						'content-type': 'application/json',
+					},
+					body: JSON.stringify(saveUser),
+				})
+					.then((res) => res.json())
+					.then(() => {
+						navigate('/');
+					});
+			})
+			.catch((error) => {
+				console.log(error.message);
+			});
 	};
 
 	return (
@@ -67,6 +117,16 @@ const Register = () => {
 							onSubmit={handleSubmit(onSubmit)}
 							className="card-body"
 						>
+							<div className="form-control font-bold text-2xl text-black flex flex-col items-center justify-center text-center">
+								Sign Up
+								<div
+									onClick={handleGoogleSignIn}
+									className="font-bold flex items-center border-2 border-black p-2 mt-2 rounded-lg cursor-pointer"
+								>
+									<FcGoogle className="text-5xl mx-auto cursor-pointer mr-2" />
+									<p>Continue With Google</p>
+								</div>
+							</div>
 							<div className="form-control">
 								<label className="label">
 									<span className="label-text text-xl font-bold text-black">

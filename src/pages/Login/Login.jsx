@@ -31,14 +31,8 @@ const Login = () => {
 		signInWithGoogle()
 			.then((result) => {
 				const user = result.user;
-				updateUserProfile(user.name, user.photoURL)
-					.then(() => {
-						console.log(user);
-						navigate(from, { replace: true });
-					})
-					.catch((error) => {
-						console.log(error);
-					});
+				console.log(user);
+				navigate(from, { replace: true });
 			})
 			.catch((error) => {
 				console.log(error.message);
