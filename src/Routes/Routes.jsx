@@ -6,6 +6,8 @@ import Register from '../pages/Register/Register';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import Dashboard from '../Layout/Dashboard';
 import ManageUsers from '../pages/Dashboard/ManageUsers/ManageUsers';
+import ManageClasses from '../pages/Dashboard/ManageClasses/ManageClasses';
+import PrivateRoute from './PrivateRoute';
 
 export const router = createBrowserRouter([
 	{
@@ -29,11 +31,19 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: 'dashboard',
-		element: <Dashboard></Dashboard>,
+		element: (
+			<PrivateRoute>
+				<Dashboard></Dashboard>
+			</PrivateRoute>
+		),
 		children: [
 			{
 				path: 'manageusers',
 				element: <ManageUsers></ManageUsers>,
+			},
+			{
+				path: 'manageclasses',
+				element: <ManageClasses></ManageClasses>,
 			},
 		],
 	},
