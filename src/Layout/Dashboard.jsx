@@ -91,7 +91,7 @@ const Dashboard = () => {
 								</li>
 								<li>
 									<NavLink
-										to="/dashboard/manageusers"
+										to="/dashboard/addclass"
 										className={({ isActive }) =>
 											isActive
 												? 'pb-1 border-b-2 border-[#262A53] hover:border-[#FFA0A0]'

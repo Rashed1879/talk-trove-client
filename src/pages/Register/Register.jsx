@@ -20,7 +20,7 @@ const Register = () => {
 
 	const onSubmit = async (data) => {
 		if (data.password !== data.confirmPassword) {
-			return alert("Password didn't mathed!");
+			return alert("Password didn't matched!");
 		}
 		const image = data.photo[0];
 		const formData = new FormData();
