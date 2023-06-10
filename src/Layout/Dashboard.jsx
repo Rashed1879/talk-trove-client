@@ -3,11 +3,13 @@ import { FaUsers, FaHome } from 'react-icons/fa';
 import { SiGoogleclassroom } from 'react-icons/si';
 import { BiAddToQueue, BiSelectMultiple } from 'react-icons/bi';
 import { BsListCheck, BsWalletFill } from 'react-icons/bs';
+import useAdmin from '../hooks/useAdmin';
 
 const Dashboard = () => {
 	// TODO: load data from the server to have dynamic isAdmin based on Data
-	const isAdmin = true;
 	const isInstructor = false;
+
+	const [isAdmin] = useAdmin();
 
 	return (
 		<div className="drawer lg:drawer-open">
