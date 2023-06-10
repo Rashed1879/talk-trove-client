@@ -8,6 +8,29 @@ const ManageUsers = () => {
 		return res.json();
 	});
 
+	const handleMakeAdmin = (id) => {
+		fetch(`http://localhost:5000/users/admin/${id}`, {
+			method: 'PATCH',
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.modifiedCount) {
+					refetch();
+				}
+			});
+	};
+	const handleMakeInstructor = (id) => {
+		fetch(`http://localhost:5000/users/instructor/${id}`, {
+			method: 'PATCH',
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.modifiedCount) {
+					refetch();
+				}
+			});
+	};
+
 	return (
 		<div>
 			<h2 className="text-center mb-5">
@@ -51,10 +74,28 @@ const ManageUsers = () => {
 								</td>
 								<td>{user.role}</td>
 								<th>
-									<button className="btn btn-sm mr-2">
+									<button
+										onClick={() =>
+											handleMakeInstructor(user._id)
+										}
+										disabled={
+											user.role === 'instructor'
+												? true
+												: false
+										}
+										className="btn btn-sm mr-2"
+									>
 										<ImUserTie />
 									</button>
-									<button className="btn btn-sm">
+									<button
+										onClick={() =>
+											handleMakeAdmin(user._id)
+										}
+										className="btn btn-sm"
+										disabled={
+											user.role === 'admin' ? true : false
+										}
+									>
 										<GrUserAdmin />
 									</button>
 								</th>
