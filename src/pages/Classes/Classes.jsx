@@ -3,11 +3,13 @@ import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 import useAdmin from '../../hooks/useAdmin';
 import useInstructor from '../../hooks/useInstructor';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const Classes = () => {
 	const { user } = useContext(AuthContext);
 	const [isAdmin] = useAdmin();
 	const [isInstructor] = useInstructor();
+	const [axiosSecure] = useAxiosSecure();
 
 	const { data: approvedClasses = [] } = useQuery({
 		queryKey: ['approvedclasses'],
@@ -17,10 +19,15 @@ const Classes = () => {
 		},
 	});
 
-	const handleSelectClass = () => {
+	const handleSelectClass = (selectedClass) => {
 		if (!user) {
 			alert('Please Login To Select The Class');
 		}
+		axiosSecure.post('/selectedClasses', selectedClass).then((data) => {
+			if (data.data.insertedId) {
+				alert('The Class is selected');
+			}
+		});
 	};
 
 	return (
@@ -64,7 +71,9 @@ const Classes = () => {
 							</div>
 							<div>
 								<button
-									onClick={handleSelectClass}
+									onClick={() =>
+										handleSelectClass(approvedClass)
+									}
 									disabled={
 										isAdmin ||
 										isInstructor ||
