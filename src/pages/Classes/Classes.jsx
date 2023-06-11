@@ -1,0 +1,86 @@
+import { useQuery } from '@tanstack/react-query';
+import { useContext } from 'react';
+import { AuthContext } from '../../providers/AuthProvider';
+import useAdmin from '../../hooks/useAdmin';
+import useInstructor from '../../hooks/useInstructor';
+
+const Classes = () => {
+	const { user } = useContext(AuthContext);
+	const [isAdmin] = useAdmin();
+	const [isInstructor] = useInstructor();
+
+	const { data: approvedClasses = [] } = useQuery({
+		queryKey: ['approvedclasses'],
+		queryFn: async () => {
+			const res = await fetch('http://localhost:5000/classes/approved');
+			return res.json();
+		},
+	});
+
+	const handleSelectClass = () => {
+		if (!user) {
+			alert('Please Login To Select The Class');
+		}
+	};
+
+	return (
+		<div>
+			<h2 className="text-center text-4xl my-3">
+				Available Classes On Talk Trove
+			</h2>
+			<div className="grid grid-cols-3 gap-6 my-5">
+				{approvedClasses.map((approvedClass) => (
+					<div
+						key={approvedClass._id}
+						className={`card w-full bg-base-200 shadow-xl ${
+							approvedClass.availableSeats === 0
+								? 'bg-red-600'
+								: ''
+						}`}
+					>
+						<figure className="rounded-xl">
+							<img
+								src={approvedClass.image}
+								alt="Shoes"
+								className="rounded-xl w-full h-96"
+							/>
+						</figure>
+						<div className="card-body items-center text-center">
+							<h2 className=" text-black font-bold text-2xl">
+								{approvedClass.className}
+							</h2>
+							<h3 className=" text-black font-bold text-xl">
+								Instructor: {approvedClass.instructorName}
+							</h3>
+
+							<div className="flex items-center space-x-3">
+								<p className=" text-black font-bold">
+									Available Seats:{' '}
+									{approvedClass.availableSeats}
+								</p>
+								<p className=" text-black font-bold ">
+									Price: {approvedClass.price}
+								</p>
+							</div>
+							<div>
+								<button
+									onClick={handleSelectClass}
+									disabled={
+										isAdmin ||
+										isInstructor ||
+										approvedClass.availableSeats === 0
+									}
+									className="btn btn-outline hover:bg-black hover:text-white"
+								>
+									Select Class
+								</button>
+							</div>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	);
+};
+
+export default Classes;
