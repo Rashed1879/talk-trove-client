@@ -23,7 +23,26 @@ const Classes = () => {
 		if (!user) {
 			alert('Please Login To Select The Class');
 		}
-		axiosSecure.post('/selectedClasses', selectedClass).then((data) => {
+		const {
+			className,
+			instructorName,
+			instructorEmail,
+			availableSeats,
+			price,
+			image,
+			_id,
+		} = selectedClass;
+		const mySelectedClass = {
+			className,
+			instructorName,
+			instructorEmail,
+			availableSeats,
+			price,
+			image,
+			classId: _id,
+			studentEmail: user.email,
+		};
+		axiosSecure.post('/selectedClasses', mySelectedClass).then((data) => {
 			if (data.data.insertedId) {
 				alert('The Class is selected');
 			}
