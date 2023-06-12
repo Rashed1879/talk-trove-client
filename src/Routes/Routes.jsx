@@ -15,6 +15,7 @@ import MyClasses from '../pages/Dashboard/MyClasses/MyClasses';
 import Classes from '../pages/Classes/Classes';
 import Instructors from '../pages/Instructors/Instructors';
 import MySelectedClasses from '../pages/Dashboard/MySelectedClasses/MySelectedClasses';
+import Payment from '../pages/Dashboard/Payment/Payment';
 
 export const router = createBrowserRouter([
 	{
@@ -46,12 +47,14 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: 'dashboard',
+		errorElement: <ErrorPage></ErrorPage>,
 		element: (
 			<PrivateRoute>
 				<Dashboard></Dashboard>
 			</PrivateRoute>
 		),
 		children: [
+			// Admin Routes
 			{
 				path: 'manageusers',
 				element: (
@@ -68,6 +71,7 @@ export const router = createBrowserRouter([
 					</AdminRoute>
 				),
 			},
+			// Instructor Routes
 			{
 				path: 'addclass',
 				element: (
@@ -84,9 +88,14 @@ export const router = createBrowserRouter([
 					</InstructorRoute>
 				),
 			},
+			// Student Routes
 			{
 				path: 'myselectedclasses',
 				element: <MySelectedClasses></MySelectedClasses>,
+			},
+			{
+				path: 'payment',
+				element: <Payment></Payment>,
 			},
 		],
 	},

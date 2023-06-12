@@ -3,6 +3,7 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '../../../providers/AuthProvider';
 import { MdDeleteForever, MdPayments } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const MySelectedClasses = () => {
 	const { user } = useContext(AuthContext);
@@ -29,7 +30,7 @@ const MySelectedClasses = () => {
 
 	return (
 		<div>
-			<h2>My Selected Classes : {mySelectedClasses.length}</h2>
+			<h2 className="text-center text-4xl my-3">My Selected Classes</h2>
 			<div className="overflow-x-auto">
 				<table className="table border-2 border-black">
 					{/* head */}
@@ -72,9 +73,14 @@ const MySelectedClasses = () => {
 								</td>
 								<td>${mySelectedClass.price}</td>
 								<th>
-									<button className="btn btn-sm mr-2 text-xl">
-										<MdPayments />
-									</button>
+									<Link
+										to="/dashboard/payment"
+										state={mySelectedClass}
+									>
+										<button className="btn btn-sm mr-2 text-xl">
+											<MdPayments />
+										</button>
+									</Link>
 									<button
 										onClick={() =>
 											handleDeleteClass(
