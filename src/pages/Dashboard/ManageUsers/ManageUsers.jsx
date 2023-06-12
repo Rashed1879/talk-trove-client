@@ -12,9 +12,12 @@ const ManageUsers = () => {
 	});
 
 	const handleMakeAdmin = (id) => {
-		fetch(`http://localhost:5000/users/admin/${id}`, {
-			method: 'PATCH',
-		})
+		fetch(
+			`https://assignment-12-server-rashed1879.vercel.app/users/admin/${id}`,
+			{
+				method: 'PATCH',
+			}
+		)
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.modifiedCount) {
@@ -23,9 +26,12 @@ const ManageUsers = () => {
 			});
 	};
 	const handleMakeInstructor = (id) => {
-		fetch(`http://localhost:5000/users/instructor/${id}`, {
-			method: 'PATCH',
-		})
+		fetch(
+			`https://assignment-12-server-rashed1879.vercel.app/users/instructor/${id}`,
+			{
+				method: 'PATCH',
+			}
+		)
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.modifiedCount) {

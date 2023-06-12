@@ -14,7 +14,9 @@ const Classes = () => {
 	const { data: approvedClasses = [] } = useQuery({
 		queryKey: ['approvedclasses'],
 		queryFn: async () => {
-			const res = await fetch('http://localhost:5000/classes/approved');
+			const res = await fetch(
+				'https://assignment-12-server-rashed1879.vercel.app/classes/approved'
+			);
 			return res.json();
 		},
 	});

@@ -4,7 +4,9 @@ const PopularInstructors = () => {
 	const { data: popularInstructors = [] } = useQuery({
 		queryKey: ['popularInstructors'],
 		queryFn: async () => {
-			const res = await fetch('http://localhost:5000/popularinstructors');
+			const res = await fetch(
+				'https://assignment-12-server-rashed1879.vercel.app/popularinstructors'
+			);
 			return res.json();
 		},
 	});

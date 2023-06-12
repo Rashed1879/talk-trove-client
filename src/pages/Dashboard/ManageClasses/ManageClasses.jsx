@@ -18,9 +18,12 @@ const ManageClasses = () => {
 	});
 
 	const handleApprove = (id) => {
-		fetch(`http://localhost:5000/classes/approve/${id}`, {
-			method: 'PATCH',
-		})
+		fetch(
+			`https://assignment-12-server-rashed1879.vercel.app/classes/approve/${id}`,
+			{
+				method: 'PATCH',
+			}
+		)
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.modifiedCount) {
@@ -29,9 +32,12 @@ const ManageClasses = () => {
 			});
 	};
 	const handleDeny = (id) => {
-		fetch(`http://localhost:5000/classes/deny/${id}`, {
-			method: 'PATCH',
-		})
+		fetch(
+			`https://assignment-12-server-rashed1879.vercel.app/classes/deny/${id}`,
+			{
+				method: 'PATCH',
+			}
+		)
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.modifiedCount) {
@@ -48,13 +54,16 @@ const ManageClasses = () => {
 	const handleSendFeedback = (event, id) => {
 		event.preventDefault();
 		const feedback = event.target.feedback.value;
-		fetch(`http://localhost:5000/classes/feedback/${id}`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ feedback }),
-		})
+		fetch(
+			`https://assignment-12-server-rashed1879.vercel.app/classes/feedback/${id}`,
+			{
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ feedback }),
+			}
+		)
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.modifiedCount) {

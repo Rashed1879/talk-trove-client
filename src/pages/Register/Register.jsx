@@ -51,13 +51,16 @@ const Register = () => {
 						image: imageUrl,
 						role: 'student',
 					};
-					fetch('http://localhost:5000/users', {
-						method: 'POST',
-						headers: {
-							'content-type': 'application/json',
-						},
-						body: JSON.stringify(saveUser),
-					})
+					fetch(
+						'https://assignment-12-server-rashed1879.vercel.app/users',
+						{
+							method: 'POST',
+							headers: {
+								'content-type': 'application/json',
+							},
+							body: JSON.stringify(saveUser),
+						}
+					)
 						.then((res) => res.json())
 						.then((data) => {
 							if (data.insertedId) {
@@ -88,13 +91,16 @@ const Register = () => {
 					image: user.photoURL,
 					role: 'student',
 				};
-				fetch('http://localhost:5000/users', {
-					method: 'POST',
-					headers: {
-						'content-type': 'application/json',
-					},
-					body: JSON.stringify(saveUser),
-				})
+				fetch(
+					'https://assignment-12-server-rashed1879.vercel.app/users',
+					{
+						method: 'POST',
+						headers: {
+							'content-type': 'application/json',
+						},
+						body: JSON.stringify(saveUser),
+					}
+				)
 					.then((res) => res.json())
 					.then(() => {
 						navigate('/');

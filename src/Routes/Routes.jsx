@@ -30,12 +30,12 @@ export const router = createBrowserRouter([
 				element: <Home></Home>,
 			},
 			{
-				path: 'classes',
-				element: <Classes></Classes>,
-			},
-			{
 				path: 'instructors',
 				element: <Instructors></Instructors>,
+			},
+			{
+				path: 'classes',
+				element: <Classes></Classes>,
 			},
 			{
 				path: 'login',
